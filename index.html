@@ -305,19 +305,23 @@
 <li>没有权限、申请权限。</li>
 <li>得到权限读取通讯录信息。</li>
 </ul>
-<h4 id="AddressBook-Framework"><a href="#AddressBook-Framework" class="headerlink" title="AddressBook Framework:"></a>AddressBook Framework:</h4><pre><code>首先引入:AddressBook
+<h4 id="AddressBook-Framework"><a href="#AddressBook-Framework" class="headerlink" title="AddressBook Framework:"></a>AddressBook Framework:</h4><pre><code>//首先引入:AddressBook
 import AddressBook
 override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event:        UIEvent?) {
+    //具体操作
         addressBook()
 }
 func addressBook(){
+    // 获取AddressBook对象
     let contact = ABAddressBookCreateWithOptions(nil,     nil).takeRetainedValue()
+
     ABAddressBookRequestAccessWithCompletion(contact)     { (granted, error) in
         guard granted else {
             print(&quot;用户拒绝授权，直接返回&quot;)
             return
         }
         print(&quot;用户允许访问，访问通讯录&quot;)
+        //所有东西都在这个数组里
         let peoples =               ABAddressBookCopyArrayOfAllPeople(contact).takeRetainedValue() as NSArray
         for people: ABRecord in peoples as [AnyObject]{
 
