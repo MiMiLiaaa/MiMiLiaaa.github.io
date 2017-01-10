@@ -91,7 +91,8 @@
 没有权限、申请权限。
 得到权限读取通讯录信息。
 
-AddressBook Framework:Contacts framework:">
+AddressBook Framework:首先引入:AddressBook
+impo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Address Operate">
 <meta property="og:url" content="http://yoursite.com/2017/01/10/Swift-Address-Operate/index.html">
@@ -103,8 +104,9 @@ AddressBook Framework:Contacts framework:">
 没有权限、申请权限。
 得到权限读取通讯录信息。
 
-AddressBook Framework:Contacts framework:">
-<meta property="og:updated_time" content="2017-01-10T11:21:20.000Z">
+AddressBook Framework:首先引入:AddressBook
+impo">
+<meta property="og:updated_time" content="2017-01-10T11:29:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Address Operate">
 <meta name="twitter:description" content="iOS9以后通讯录的操作
@@ -114,7 +116,8 @@ AddressBook Framework:Contacts framework:">
 没有权限、申请权限。
 得到权限读取通讯录信息。
 
-AddressBook Framework:Contacts framework:">
+AddressBook Framework:首先引入:AddressBook
+impo">
 
 
 
@@ -323,7 +326,48 @@ AddressBook Framework:Contacts framework:">
 <li>没有权限、申请权限。</li>
 <li>得到权限读取通讯录信息。</li>
 </ul>
-<h4 id="AddressBook-Framework"><a href="#AddressBook-Framework" class="headerlink" title="AddressBook Framework:"></a>AddressBook Framework:</h4><h4 id="Contacts-framework"><a href="#Contacts-framework" class="headerlink" title="Contacts framework:"></a>Contacts framework:</h4>
+<h4 id="AddressBook-Framework"><a href="#AddressBook-Framework" class="headerlink" title="AddressBook Framework:"></a>AddressBook Framework:</h4><pre><code>首先引入:AddressBook
+import AddressBook
+override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event:        UIEvent?) {
+        addressBook()
+}
+func addressBook(){
+    let contact = ABAddressBookCreateWithOptions(nil,     nil).takeRetainedValue()
+    ABAddressBookRequestAccessWithCompletion(contact)     { (granted, error) in
+        guard granted else {
+            print(&quot;用户拒绝授权，直接返回&quot;)
+            return
+        }
+        print(&quot;用户允许访问，访问通讯录&quot;)
+        let peoples =               ABAddressBookCopyArrayOfAllPeople(contact).takeRetainedValue() as NSArray
+        for people: ABRecord in peoples as [AnyObject]{
+
+            var firstName = &quot;&quot;
+            var lastName = &quot;&quot;
+            if let firstNameUnmanaged = ABRecordCopyValue(people, kABPersonLastNameProperty) {
+                firstName = firstNameUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
+            }
+            if let lastNameUnmanaged = ABRecordCopyValue(people, kABPersonFirstNameProperty) {
+                lastName = lastNameUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
+            }
+            let phoneNums: ABMultiValue = ABRecordCopyValue(people, kABPersonPhoneProperty).takeRetainedValue()
+            guard let phoneNumUnmanaged = ABMultiValueCopyValueAtIndex(phoneNums, 0) else {
+                continue
+            }
+            var phoneNum = phoneNumUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
+            print(phoneNum)
+            var name = &quot;&quot;
+            if firstName == &quot;&quot; {
+                name = lastName
+            }else if lastName == &quot;&quot;{
+                name = firstName
+            }
+            print(name)
+        }
+
+    }
+}
+</code></pre><h4 id="Contacts-framework"><a href="#Contacts-framework" class="headerlink" title="Contacts framework:"></a>Contacts framework:</h4>
       
     </div>
 
