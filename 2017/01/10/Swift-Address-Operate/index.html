@@ -89,10 +89,7 @@
 初始流程
 校验是否有读取通讯录的权限。
 没有权限、申请权限。
-得到权限读取通讯录信息。
-
-AddressBook Framework://首先引入:AddressBook
-im">
+得到权限读取通讯录信息。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Address Operate">
 <meta property="og:url" content="http://yoursite.com/2017/01/10/Swift-Address-Operate/index.html">
@@ -102,11 +99,8 @@ im">
 初始流程
 校验是否有读取通讯录的权限。
 没有权限、申请权限。
-得到权限读取通讯录信息。
-
-AddressBook Framework://首先引入:AddressBook
-im">
-<meta property="og:updated_time" content="2017-01-11T02:01:16.000Z">
+得到权限读取通讯录信息。">
+<meta property="og:updated_time" content="2017-01-11T07:05:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Address Operate">
 <meta name="twitter:description" content="iOS9以后通讯录的操作
@@ -114,10 +108,7 @@ im">
 初始流程
 校验是否有读取通讯录的权限。
 没有权限、申请权限。
-得到权限读取通讯录信息。
-
-AddressBook Framework://首先引入:AddressBook
-im">
+得到权限读取通讯录信息。">
 
 
 
@@ -324,52 +315,51 @@ im">
 <h3 id="初始流程"><a href="#初始流程" class="headerlink" title="初始流程"></a>初始流程</h3><ul>
 <li>校验是否有读取通讯录的权限。</li>
 <li>没有权限、申请权限。</li>
-<li>得到权限读取通讯录信息。</li>
-</ul>
-<h4 id="AddressBook-Framework"><a href="#AddressBook-Framework" class="headerlink" title="AddressBook Framework:"></a>AddressBook Framework:</h4><pre><code>//首先引入:AddressBook
-import AddressBook
-override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event:        UIEvent?) {
-    //具体操作
-        addressBook()
-}
-func addressBook(){
-    // 获取AddressBook对象
-    let contact = ABAddressBookCreateWithOptions(nil,     nil).takeRetainedValue()
-    ABAddressBookRequestAccessWithCompletion(contact)     { (granted, error) in
-        guard granted else {
-            print(&quot;用户拒绝授权，直接返回&quot;)
-            return
-        }
-        print(&quot;用户允许访问，访问通讯录&quot;)
-        //所有东西都在这个数组里
-        let peoples =ABAddressBookCopyArrayOfAllPeople(contact).takeRetainedValue() as NSArray
-        for people: ABRecord in peoples as [AnyObject]{
-            var firstName = &quot;&quot;
-            var lastName = &quot;&quot;
-            if let firstNameUnmanaged = ABRecordCopyValue(people, kABPersonLastNameProperty) {
-                firstName = firstNameUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
-            }
-            if let lastNameUnmanaged = ABRecordCopyValue(people, kABPersonFirstNameProperty) {
-                lastName = lastNameUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
-            }
-            let phoneNums: ABMultiValue = ABRecordCopyValue(people, kABPersonPhoneProperty).takeRetainedValue()
-            guard let phoneNumUnmanaged = ABMultiValueCopyValueAtIndex(phoneNums, 0) else {
-                continue
-            }
-            var phoneNum = phoneNumUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
-            print(phoneNum)
-            var name = &quot;&quot;
-            if firstName == &quot;&quot; {
-                name = lastName
-            }else if lastName == &quot;&quot;{
-                name = firstName
-            }
-            print(name)
-        }
-
+<li><p>得到权限读取通讯录信息。</p>
+<a id="more"></a>
+<h4 id="AddressBook-Framework"><a href="#AddressBook-Framework" class="headerlink" title="AddressBook Framework:"></a>AddressBook Framework:</h4><p>  //首先引入:AddressBook<br>  import AddressBook<br>  override func touchesBegan(_ touches: Set<uitouch>, with event:        UIEvent?) {</uitouch></p>
+<pre><code>//具体操作
+    addressBook()
+</code></pre><p>  }<br>  func addressBook(){</p>
+<pre><code>// 获取AddressBook对象
+let contact = ABAddressBookCreateWithOptions(nil,     nil).takeRetainedValue()
+ABAddressBookRequestAccessWithCompletion(contact)     { (granted, error) in
+    guard granted else {
+        print(&quot;用户拒绝授权，直接返回&quot;)
+        return
     }
+    print(&quot;用户允许访问，访问通讯录&quot;)
+    //所有东西都在这个数组里
+    let peoples =ABAddressBookCopyArrayOfAllPeople(contact).takeRetainedValue() as NSArray
+    for people: ABRecord in peoples as [AnyObject]{
+        var firstName = &quot;&quot;
+        var lastName = &quot;&quot;
+        if let firstNameUnmanaged = ABRecordCopyValue(people, kABPersonLastNameProperty) {
+            firstName = firstNameUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
+        }
+        if let lastNameUnmanaged = ABRecordCopyValue(people, kABPersonFirstNameProperty) {
+            lastName = lastNameUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
+        }
+        let phoneNums: ABMultiValue = ABRecordCopyValue(people, kABPersonPhoneProperty).takeRetainedValue()
+        guard let phoneNumUnmanaged = ABMultiValueCopyValueAtIndex(phoneNums, 0) else {
+            continue
+        }
+        var phoneNum = phoneNumUnmanaged.takeRetainedValue() as? String ?? &quot;&quot;
+        print(phoneNum)
+        var name = &quot;&quot;
+        if firstName == &quot;&quot; {
+            name = lastName
+        }else if lastName == &quot;&quot;{
+            name = firstName
+        }
+        print(name)
+    }
+
 }
-</code></pre><h4 id="Contacts-framework"><a href="#Contacts-framework" class="headerlink" title="Contacts framework:"></a>Contacts framework:</h4><pre><code>func Contacts(){
+</code></pre><p>  }</p>
+</li>
+</ul>
+<h4 id="Contacts-framework"><a href="#Contacts-framework" class="headerlink" title="Contacts framework:"></a>Contacts framework:</h4><pre><code>func Contacts(){
     let store = CNContactStore()
     // 2.2.请求授权
     store.requestAccess(for: .contacts, completionHandler: { (isFlag : Bool, error : Error?) in
